@@ -2,22 +2,22 @@
 #include <stdio.h>
 
 /**
-* array_iterator - executes a function
+* array_iterator - prints each array elem on a newl
 * @array: the array
 * @size: how many elem to print
-* @action: is a pointer to the function 
+* @action: pointer to print in regular or hex
 * return: void
 */
 void array_iterator(int *array, size_t size, void (*action)(int))
 {
-	unsigned int y;
+	unsigned int i;
 
-	if (!array || !action)
+	if (array == NULL || action == NULL)
 		return;
-	y = 0;
-	while (y < size)
+	i = 0;
+	while (i < size)
 	{
-		action(array[y]);
-		y++;
+		action(array[i]);
+		i++;
 	}
 }
