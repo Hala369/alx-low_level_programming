@@ -1,21 +1,34 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
+/**
+* error_file - checks if files can be opened
+* @file_from: file
+* @file_to: file
+* @argv: arguments vector
+* Return: no return
+*/
+void error_file(int file_from, int file_to, char *argv[])
+{
+	if (file_from == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	if (file_to == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		exit(99);
+	}
+}
 
 /**
  * main - copies the content of a file to another file
  * @argc: The number of arguments supplied to the program.
  * @argv: An array of pointers to the arguments.
- *
  * Return: 0 on success.
  */
 int main(int argc, char *argv[])
 {
-	int desc_x;
-	int desc_w;
-	int x;
-	int y;
-	int z;
+	int desc_x, desc_w, x, y, z;
 	char buffer[BUFSIZ];
 
 	if (argc != 3)
