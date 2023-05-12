@@ -8,22 +8,25 @@
 */
 int create_file(const char *filename, char *text_content)
 {
-	int f = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	int l = write(f, text_content, strlen(text_content));
+	int desc;
+	int to_write;
+	int f = 0;
 
-	if (filename == NULL)
+	if (!filename)
 		return (-1);
-
-	if (f == -1)
+	desc = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	if (desc < 0)
 		return (-1);
-	if (text_content != NULL)
+	if (text_content)
 	{
-		if (l == -1)
-		{
-			close(f);
+		while (text_content[f])
+			f++;
+		to_write = write(desc, text_content, f);
+		if (to_write != f)
 			return (-1);
-		}
 	}
-	close(f);
+
+	close(desc);
+
 	return (1);
 }
